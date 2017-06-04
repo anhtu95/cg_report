@@ -104,6 +104,81 @@ Như vậy bằng cách xác định các giá trị cho các tham số xác đ�
 \caption{Đường đi trong không gian làm việc và không gian cấu hình}
 \end{figure}
 \par Một chướng ngại vật $\mathcal{P}$ trong không gian làm việc tương ứng một tập các điểm $p$ trong không gian cấu hình 
+\section{Trapezoidal Maps}
+Trong phần này chúng em sẽ trình bày về Trapezoidal Maps áp dụng trong bài toán lập kế hoạch di chuyển cho robot.\\
+
+Xét một vùng kích thước R, bên trong gồm các chứng ngại vật có dạng đa giác. 
+\begin{figure}[H]
+\label{object_pic}
+\centering
+\includegraphics[scale=0.4]{normal.png}
+\caption{Các chứng ngại vật hình đa giác}
+\end{figure}
+
+Xây dựng tập S là tập các cạnh của các đa giác chứng ngại vật.
+
+\textbf{Yêu cầu:} 
+\begin{itemize}
+\item Hai cạnh bất kì phải là non-crossing tức là chúng không giao nhau hoặc có duy nhất một điểm mút chung.
+\item Hai điểm mút bất kì của hai cạnh bất kì là không cùng tọa độ x.
+\end{itemize}
+
+Yêu cầu thứ 2 nhìn có vẻ không hợp lý, nhưng trong thực tế việc có có hai đầu mút có cùng tọa độ là một điều rất khó xảy ra. Vậy nên ta hoàn toàn có thể chấp nhận yêu cầu thứ 2.
+
+Trapezoidal map $\tau(S)$ của S hay còn gọi là  phân tách đứng hoặc phân tách hình thang của S đạt được bằng cách vẽ hai đường thẳng từ mỗi đầu mút của một đoạn thẳng trong S, một đường đi xuống một đường đi lên. Hai đường thẳng này sẽ dừng lại khi gặp một đoạn thẳng khác hoặc biên của miền bao phủ (R). Trapezoidal map của S được tạo bởi miền bao phủ, các chứng ngại vật và các đường thẳng vừa tạo. \\
+\begin{figure}[H]
+\label{object_pic}
+\centering
+\includegraphics[scale=0.4]{trmap.png}
+\caption{Trapezoidal map}
+\end{figure}
+Bồ đề 1: Mỗi vùng trong Trapezoidal map luôn chỉ có một hoặc hai đường cạnh thẳng đứng và chính xác hai đoạn thẳng không đứng.
+
+Bổ đề 2: Trapezoidal map của một tập S gồm n đoạn thẳng thì sẽ chứa 6n+4 đỉnh và nhiều nhất 3n+1 hình thang.
+
+Để biểu diễn Trapezoidal map ta chỉ cẩn sử dụng một danh sách bản ghi, mỗi bản ghi tương ứng với mỗi hình thang và được biểu diễn bởi 4 điểm top,bottom,left,right. 
+
+Sau đây ta sẽ trình bày một thuật toán xây dựng cấu trúc tìm kiếm sử dụng để truy vấn trong Trapezoidal map.
+
+Cấu trúc là một dạng cây, có 3 loại node trên cây :
+\begin{itemize}
+\item Nút lá đại diện cho một hình thang.
+\item Nút dạng x nhãn là một đầu mút của một đoạn thẳng nào đó.
+\item Nút dạng y nhãn là đoạn thẳng
+\end{itemize}
+
+Thuật toán hoạt động như sau :
+Đầu vào: Tập các đường thẳng S
+Đầu ra: Cấu trúc tìm kiếm trên Trapezoidal map(s)
+
+\begin{enumerate}
+\item Khởi tạo danh sách hình thang, cây tìm kiếm.
+\item Xáo trộn  ngẫu nhiên các cạnh trong tập S.
+\item lặp 1->n  
+\begin{enumerate}
+\item Tìm tập hình thang giao với đoạn thăng si
+\item Xóa tất cả các hình thang đó khỏi danh sách T và thay vào đó là tập các hình thang mới vừa tạo thành bởi cạnh si
+\item Xóa các hình thang ở bước a khỏi cấu trúc tìm kiếm. Liên kết các hình thang với nhau.
+
+		
+\end{enumerate}
+\end{enumerate}
+\begin{figure}[H]
+\label{object_pic}
+\centering
+\includegraphics[scale=0.4]{trmap2.png}
+\caption{Xây dựng các hình thang khi thêm một cạnh mới}
+
+\end{figure}
+
+\begin{figure}[H]
+\label{object_pic}
+\centering
+\includegraphics[scale=0.4]{trmap3.png}
+\caption{Cấu trúc tìm kiếm dựa trên cây}
+
+\end{figure}
+
 
 \section{Minkowski Sums}
 Trong phần trước chúng ta đã giải quyết vấn đề lập kế hoạch cho robot điểm, chúng ta tính một bản đồ hình thang của không gian trống và sử dụng bản đồ này để lên kế hoạch. Phương pháp tương tự có thể sử dụng nếu như robot là một đa giác. Có một sự khác biệt làm cho việc xử lý robot đa giác trở nên khó khăn hơn: Hình dạng không gian các chướng ngại vật là không giống nhu trong không gian làm việc. Vì vậy chúng ta sẽ bắt đầu tìm hiểu các hình dạng không gian của biến thể đa giác robot. Trong phần tiếp theo, chúng ta sẽ mô tả cách tính nó, để chúng ta có thể sử dụng nó để lên kế hoạch cho chuyển động của robot.
