@@ -6,6 +6,7 @@
 \usepackage{enumerate}
 %\usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{caption}
 %\usepackage{cases}
 \usepackage{fancybox}
 \usepackage{multirow}
@@ -113,9 +114,11 @@ CP = \{(x,y): \Re(x,y)\cap P \neq \emptyset \}
 \end{displaymath}
 \begin{minipage}[b]{0.45\linewidth}
 \includegraphics[width=0.8\linewidth]{1.png}
+\captionof{figure}{MINKOWSKI SUMS}
 \end{minipage}
 \begin{minipage}[b]{0.45\linewidth}
 \includegraphics[width=0.8\linewidth]{2.png}
+\captionof{figure}{MINKOWSKI SUMS cho 2 tập $S_1$ và $S_2$}
 \end{minipage}
  \\
 Chúng ta có thể hình dung hình dạng của CP bằng cách trượt R dọc theo ranh giới bao ngoài của P; Đường cong bắt đầu từ điểm R là ranh giới của CP. \\ \\
@@ -139,6 +142,7 @@ Trong phần còn lại của phần này chúng ta sẽ rút ra một số tín
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.5\linewidth]{5.png}
+\caption{An extreme point on a Minkowski sum is the sum of extreme points}
 \end{center}
 \end{figure}
 \textbf{Định lý: } Cho P và $\Re$ là đa giác lồi với n và m cạnh tương ứng. Sau đó Minkowski sum $P \oplus \Re$ là một đa giác lồi với số cạnh n + m. \\ \\
@@ -149,6 +153,7 @@ Xem xét hai đôi tượng phẳng $o_1$ và $o_2$, mỗi mặt đều bị ch�
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.5\linewidth]{6.png}
+\caption{The pseudodisc property}
 \end{center}
 \end{figure} \\
 Trong các tình huống thoái hoá khi các ranh giới có sự chồng chéo lên một chiều chẳng hạn thì định nghĩa này không hoàn toàn đủ. Do đó, chúng ta xác định chính xác $o_1$, $o_2$ là một cặp pseudodiscs nếu có điều kiện sau: $\partial o_1$ $\cap$ int($o_2$) được nối và $\partial o_2$ $cap$ int($o_1$) được nối. Một tập các đối tượng, mỗi đối tượng được bao bới một đường cong đóng được gọi là tập của pseudodisc nếu tất cả các điểm của đối tuowjnng trong tập là một cặp pseudodics. Ví dụ tâp của pseuodiscs là taajo của discs, và tập hợp các ô vuông song song trục.\\  \\
@@ -159,6 +164,9 @@ Chúng tôi sẽ xem xét các điểm cực trị cho các hướng khác nhau.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.9\linewidth]{7.png}
+\caption{One convex polygon is more extreme
+than another for a connected range of
+directions}
 \end{center}
 \end{figure} \\
 \textbf{Quan sát: } Cho $P_1$ và $P_2$ là đa giác lồi với phần nội dời. Cho $\overrightarrow{d_1}$ và $\overrightarrow{d_2}$ là hướng trong $P_1$ nhiều cực trị hơn $P_2$. Hoăc một trong hai $P_1$ là cực trị hơn $P_2$ ở tất cả các hướng trong khoảng từ $\overrightarrow{d_1}$ đến $\overrightarrow{d_2}$ hoặc trong khoảng tù $\overrightarrow{d_2}$ đến $\overrightarrow{d_1}$. \\ 
@@ -176,6 +184,7 @@ Giả sử $\partial CP_1 \cap$ int ($CP_2$) là không kết nối. Sau đó s�
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.4\linewidth]{9.png}
+
 \end{center}
 \end{figure}
 \\
@@ -203,6 +212,8 @@ Vì $t_i$ là một tam giác và $\Re$ đa giác lồi với đỉnh m, ta bi�
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.6\linewidth]{10.png}
+\caption{The Minkowski sum of a non-convex
+and a convex polygon}
 \end{center}
 \end{figure}\\
 Cận trên của độ phức tạp của một đa giác không lồi và đa giác lồi là chặt chẽ trong trường hợp xấu nhất.Để thấy điều này, hãy xem xét một đa giác P với $\lfloor n/2 \rfloor$ đỉnh hướng lên trên và một đa giác nhỏ hơn R là nửa trên của một bình thường có (2m-2)-gon. Minkowski sum của các đa giác này cũng sẽ có $\lfloor n/2 \rfloor$ đột biến, mỗi đỉnh có m đỉnh tại đỉnh của nó. \\ \\
@@ -210,6 +221,7 @@ Cận trên của độ phức tạp của một đa giác không lồi và đa 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.6\linewidth]{11.png}
+\caption{The Minkowski sum of two non-convex polygons}
 \end{center}
 \end{figure}\\
 \textbf{Định lý:} Cho P và $\Re$ là đa giác với các đỉnh n và m, tương ứng. Độ phức tạp của Minkowski sum $P\ oplua \Re$ bị giới hạn như sau:
