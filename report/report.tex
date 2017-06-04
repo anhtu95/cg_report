@@ -132,13 +132,13 @@ Trapezoidal map $\tau(S)$ của S hay còn gọi là  phân tách đứng hoặc
 \includegraphics[scale=0.4]{trmap.png}
 \caption{Trapezoidal map}
 \end{figure}
-Bồ đề 1: Mỗi vùng trong Trapezoidal map luôn chỉ có một hoặc hai đường cạnh thẳng đứng và chính xác hai đoạn thẳng không đứng.
+Bồ đề 1: Mỗi vùng trong Trapezoidal map luôn chỉ có một hoặc hai đường cạnh thẳng đứng và chính xác hai đoạn thẳng không đứng.\\
 
-Bổ đề 2: Trapezoidal map của một tập S gồm n đoạn thẳng thì sẽ chứa 6n+4 đỉnh và nhiều nhất 3n+1 hình thang.
+Bổ đề 2: Trapezoidal map của một tập S gồm n đoạn thẳng thì sẽ chứa 6n+4 đỉnh và nhiều nhất 3n+1 hình thang.\\
 
-Để biểu diễn Trapezoidal map ta chỉ cẩn sử dụng một danh sách bản ghi, mỗi bản ghi tương ứng với mỗi hình thang và được biểu diễn bởi 4 điểm top,bottom,left,right. 
+Để biểu diễn Trapezoidal map ta chỉ cẩn sử dụng một danh sách bản ghi, mỗi bản ghi tương ứng với mỗi hình thang và có 4 hành vi top() trả về hình thang trên nó,bottom() hình thang dưới nó, left() hình thang bên trái nó, right() hình thang bên phải nó. \\
 
-Sau đây ta sẽ trình bày một thuật toán xây dựng cấu trúc tìm kiếm sử dụng để truy vấn trong Trapezoidal map.
+Sau đây ta sẽ trình bày một thuật toán xây dựng cấu trúc tìm kiếm sử dụng để truy vấn trong Trapezoidal map.\\
 
 Cấu trúc là một dạng cây, có 3 loại node trên cây :
 \begin{itemize}
