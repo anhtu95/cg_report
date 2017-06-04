@@ -93,7 +93,7 @@ $R$ là robot di chuyển trong không gian 2 chiều (không gian làm việc),
 Giả sử robot có thể thay đổi hướng của nó thông qua phép quay, vì vậy ta cần định nghĩa thêm một tham số ($\phi$) để biểu diễn hướng của robot. Ký hiệu $\mathcal{R}(x,y,\phi)$ xác định vị trí và hướng của robot, trong đó $(x,y)$ là điểm tham chiếu, $\phi$ là góc quay ngược chiều kim đồng hồ so với vị trí thẳng (vị trí chưa quay của robot)\\[0.6em]
 Không gian các tham số của một robot $\mathcal{R}$ thường được gọi là không gian cấu hình ($\mathcal{C}(\mathcal{R})$). Một điểm $p$ trong không gian cấu hình đó sẽ tương ứng với vị trí nào đó $\mathcal{R}(p)$ của robot trong không gian làm việc.
 \par Ví dụ điểm $(x,y,\phi)$ trong không gian cấu hình sẽ tương ứng với vị trí $\mathcal{R}(c,y,\phi)$ trong không gian làm việc. Không gian cấu hình là không gian $\mathbb{R}^2\times[0:360)$ (không phải không gian Euclidean 3 chiều) do chiều quay của robot là từ 0 đến 360 độ.
-\par Không gian làm việc của là không gian thực tế mà robot di chuyển còn không gian cấu hình là không gian các tham số của robot (điểm tham chiếu, hướng của robot). Một đa giác (hình của robot) trong không gian làm việc sẽ được biểu diễn bởi một điểm trong không gian cấu hình và mọi điểm trong không gian cấu hình tương ứng với một vài vị trí thực của robot trong không gian làm việc.\\[0.6em]
+\par Không gian làm việc là không gian thực tế mà robot di chuyển còn không gian cấu hình là không gian các tham số của robot (điểm tham chiếu, hướng của robot). Một đa giác (hình của robot) trong không gian làm việc sẽ được biểu diễn bởi một điểm trong không gian cấu hình và mọi điểm trong không gian cấu hình tương ứng với một vài vị trí thực của robot trong không gian làm việc.\\[0.6em]
 Như vậy bằng cách xác định các giá trị cho các tham số xác định vị trí (hay nói cách khác bằng cách xác định một điểm trong không gian cấu hình) ta có thể xác định được vị trí của robot. Nhưng không phải tất cả các điểm trong không gian cấu hình sẽ xác định vị trí hợp lệ của robot. Đó là các điểm tương ứng với vị trí của các chướng ngại vật trong $S$. Ta gọi phần không gian trong không gian cấu hình chứa các điểm như vậy là không gian cấm (Ký hiệu $\mathcal{C}_{forb}(\mathcal{R},S$). Phần còn lại của không gian cấu hình bao gồm các điểm tương ứng với các vị trí tự do (không vướng các chướng ngại vật) được gọi là không gian tự do (Ký hiệu $\mathcal{C}_{free}(\mathcal{R},S)$).
 \par Một đường đi của robot trong không gian làm việc sẽ tương đương với một đường cong trong không gian cấu hình (nối các điểm trong không gian cấu hình tương ứng với các vị trí trên đường đi của robot trong không gian làm việc) (Hình \ref{fig_path})
 \begin{figure}[H]
@@ -102,7 +102,66 @@ Như vậy bằng cách xác định các giá trị cho các tham số xác đ�
 \includegraphics[scale=1]{path.png}
 \caption{Đường đi trong không gian làm việc và không gian cấu hình}
 \end{figure}
-\par Một chướng ngại vật $\mathcal{P}$ trong không gian làm việc tương ứng một tập các điểm $p$ trong không gian cấu hình 
+Một chướng ngại vật $\mathcal{P}$ trong không gian làm việc tương ứng một tập các điểm $p$ trong không gian cấu hình sao cho $\mathcal{R}(p)$ giao với $\mathcal{P}$. Các điểm đó được ký hiệu là $\mathcal{C}-obstacle$ của $\mathcal{P}$.
+\par $mathcal{C}-obstacles$ có thể giao nhau ngay cả khi những chướng ngại vật tương ứng trong không gian làm việc giao nhau, điều này xảy ra khi có vị trí của robot giao cắt với nhiều chướng ngại vật cùng một lúc.
+
+\section{Robot điểm}
+Trước khi ta lập kế hoạch cho robot đa giác, ta sẽ xét bài toán lập kế hoạch cho robot điểm (robot $\mathcal{R}$ và tập các chướng ngại vật $\mathcal{P}_1,...,\mathcal{P}_t$). Bằng cách chuyển không gian làm việc về không gian cấu hình, ta sẽ chuyển bài toán lập kế hoạch cho robot đa giác về bài toán lập kế hoạch cho robot điểm (một robot đa giác trong không gian làm việc sẽ là một robot điểm (điểm tham chiếu của robot) trong không gian cấu hình).
+\par Với bài toán lập kế hoạch di chuyển cho robot điểm, thay vì tìm đường đi từ một vị trí bắt đầu đến một vị trí kết thúc cụ thể, ta sẽ xây dựng một cấu trúc dữ liệu lưu trữ không gian trống. Cấu trúc dữ liệu này có thể sử dụng để tính toán đường đi giữa hai điểm bắt đầu và kết thúc bất kỳ trong không gian trống. Cách tiếp cận này sẽ thích hợp nếu không gian làm việc của robot không thay đổi và cần phải tính toán nhiều đường đi (lập kế hoạch di chuyển cho robot nhiều lần).\\[0.6em]
+Để đơn giản ta giới hạn không gian di chuyển của robot trong không gian (hộp) $B$ (Hình \ref{fig_moving_space})
+\begin{figure}[H]
+\label{fig_moving_space}
+\centering
+\includegraphics[scale=0.25]{moving_space.png}
+\caption{Không gian di chuyển robot}
+\end{figure}
+Như vậy không gian trống của robot sẽ là:
+$$\mathcal{C}_{free} = B \setminus \bigcup_{i=1}^t \mathcal{P}_i$$
+Ta sẽ sử dụng bản đồ hình thang để tính không gian trống mà từ đó có thể tìm đường đi cho một cặp điểm bắt đầu và kết thúc bất kỳ.
+
+\paragraph{Algorithm} \textsc{ComputeFreeSpace(S)}\\
+\emph{Input}. Tập các chướng ngại vật $S$\\
+\emph{Output}. Bản đồ hình thang của không gian trống $\mathcal{C}_{free}(\mathcal{R},S) (\mathcal{T}(\mathcal{C}_{free}))$
+\begin{enumerate}
+\item $E$ tập các cạnh của của các chướng ngại vật trong $S$
+\item Xây dựng bản đồ hình thang $\mathcal{T}(E)$
+\item Xóa bỏ các hình thang mà cạnh của nó ở bên trong một trong những chướng ngại vật 
+\end{enumerate}
+
+Giải thuật được minh họa trong hình \ref{fig_trapezoidal_free_space}. Trong đó hình (a) mô tả biểu đồ hình thang sau khi được tính toán tại bước 2 của giải thuật. Hình (b) là biểu đồ hình thang sau khi xóa bỏ các hình thang bên trong chướng ngại vật (bước 3)
+\begin{figure}[H]
+\centering
+\label{fig_trapezoidal_free_space}
+\includegraphics[scale=0.3]{trapezoidal_free_space.png}
+\caption{Biểu đồ hình thang của không gian trống}
+\end{figure}
+
+\subsubsection{Xây dựng đường đi sử dụng bản đồ hình thang}
+Cần xây dựng đường đi từ $p_{start}$ đến điểm $p_{end}$ sử dụng bản đồ hình thang $\mathcal{T}(\mathcal{C}_{free})$
+\par Nếu $p_{start}$ và $p_{goal}$ ở cùng trong một hình thang thì ta chỉ việc nối 2 điểm đó là có đường đi của robot.
+\par Nếu $p_{start}$ và $p_{goal}$ ở 2 hình thang khác nhau, thì đường đi của robot sẽ phải đi qua một số hình thang. Để xây dựng đường đi qua các hình thang từ $p_{start}$ đến $p_{goal}$ ta sẽ xây dựng \emph{road map} ($\mathcal{G}_{road}$) trên không gian trống. 
+\par Với mỗi hình thang trong bản đồ hình thang, xác định tâm và trung điểm các cạnh đáy của nó. Các điểm đó sẽ là tập các nút của đồ thị. Một cạnh được nối giữa một nút là tâm và một nút là trung điểm của cạnh đáy của cùng một hình thang (hình \ref{road_map})
+\begin{figure}[H]
+\centering
+\label{road_map}
+\includegraphics[scale=0.25]{road_map.png}
+\caption{Road map}
+\end{figure}
+
+\par Để tìm đường đi từ $p_{start}$ đến $p_{goal}$
+\begin{enumerate}
+\item Xác định các hình thang $\Delta_{start}$ và $\Delta_{goal}$ chứa các điểm $p_{start}$ và $p_{goal}$
+\item Xác định các điểm $v_{start}$ (tâm của hình thang $\Delta_{start}$) và $v_{goal}$ (tâm của hình thang $\Delta_{goal}$) là các nút trên đồ thị $\mathcal{G}_{road}$
+\item Nối các điểm $p_{start}$ với $v_{start}$, $p_{goal}$ với $v_{goal}$
+\item Tìm đường đi từ $v_{start}$ tới $v_{goal}$ ta có đường đi từ $p_{start}$ tới $p_{goal}$
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\label{find_path_robot_point}
+\includegraphics[scale=0.3]{find_path_robot_point.png}
+\caption{Tìm đường đi từ $p_{start}$ tới $p_{goal}$}
+\end{figure}
 
 \section{Minkowski Sums}
 Trong phần trước chúng ta đã giải quyết vấn đề lập kế hoạch cho robot điểm, chúng ta tính một bản đồ hình thang của không gian trống và sử dụng bản đồ này để lên kế hoạch. Phương pháp tương tự có thể sử dụng nếu như robot là một đa giác. Có một sự khác biệt làm cho việc xử lý robot đa giác trở nên khó khăn hơn: Hình dạng không gian các chướng ngại vật là không giống nhu trong không gian làm việc. Vì vậy chúng ta sẽ bắt đầu tìm hiểu các hình dạng không gian của biến thể đa giác robot. Trong phần tiếp theo, chúng ta sẽ mô tả cách tính nó, để chúng ta có thể sử dụng nó để lên kế hoạch cho chuyển động của robot.
