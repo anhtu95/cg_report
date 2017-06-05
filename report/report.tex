@@ -73,7 +73,7 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 \vspace{0.5cm}
 \hspace{-6cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Giảng viên hướng dẫn:}\\[0.1cm]
 \hspace{-2.7cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont PGS-TS.Huỳnh Thị Thanh Bình \\[3cm]
-\fontsize{16}{19}\fontfamily{cmr}\selectfont Hà Nội 5--2017
+\fontsize{16}{19}\fontfamily{cmr}\selectfont Hà Nội 6--2017
 \end{center}
 \newpage
 \pdfbookmark{\contentsname}{toc}
@@ -82,39 +82,121 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 \listoffigures
 
 \chapter{Mở đầu}
-Một trong những mục đích cơ bản của ngành robot là thiết kế ra những con robot tự động, những con robot có khả năng tự động lập kế hoạch cho sự di chuyển của nó. Để có thể lập kế hoạch di chuyển, một con robot cần biết về môi trường xung quanh, những trướng ngại vật cần phải tránh. Và bài toán lập kế hoạch di chuyển cho robot là bài toán khó, vì vậy cần có một vài giả sử để làm đơn giản hóa bài toán: 
+Một trong những mục đích cơ bản của ngành robot là thiết kế ra những con robot tự động, những con robot có khả năng tự động lập kế hoạch cho sự di chuyển của nó. Để có thể lập kế hoạch di chuyển, một con robot cần biết về môi trường xung quanh, những chướng ngại vật cần phải tránh. Và bài toán lập kế hoạch di chuyển cho robot là bài toán khó, vì vậy cần có một vài giả sử để làm đơn giản hóa bài toán: 
 \begin{itemize}
-\item Giả sử bài toán lập kế hoạch vận chuyển cho robot trong không gian hai chiều, với các chướng ngại vật là các đa giác, và robot cũng là một đa giác. 
+\item Giả sử bài toán lập kế hoạch di chuyển cho robot trong không gian hai chiều, với các chướng ngại vật là các đa giác, và robot cũng là một đa giác. 
 \item Giả sử môi trường xung quanh robot là tĩnh, tức là không có người đi lại trên đường di chuyển của robot, các chướng ngại vật là cố định.
 \end{itemize}
 
 
 \section{Không gian làm việc, không gian cấu hình}
-$R$ là robot di chuyển trong không gian 2 chiều (không gian làm việc), với tập $S = \{P_1, ...., P_t\}$ các chướng ngại vật. Giả sử rằng $R$ là một đa giác. Vị trí của robot có thể định nghĩa bởi một vector. Ta ký hiệu $\mathcal{R}(x,y)$ đại diện cho vector vị trí các đỉnh của robot (Điểm $(x,y)$ được gọi là điểm tham chiếu). Ví dụ robot có các đỉnh: $(1,-1), (1,1), (0,3), (-1,1), (-1,-1)$ thì $\mathcal{R}(6,4)$ sẽ đại diện cho vector vị trí của robot khi các đỉnh đa giác của robot ở các vị trí lần lượt là: $(7,3), (7,5), (6,7), (5,5), (5,3)$\\[0.6em]
-Giả sử robot có thể thay đổi hướng của nó thông qua phép quay, vì vậy ta cần định nghĩa thêm một tham số ($\phi$) để biểu diễn hướng của robot. Ký hiệu $\mathcal{R}(x,y,\phi)$ xác định vị trí và hướng của robot, trong đó $(x,y)$ là điểm tham chiếu, $\phi$ là góc quay ngược chiều kim đồng hồ so với vị trí thẳng (vị trí chưa quay của robot)\\[0.6em]
+$\mathcal{R}$ là robot di chuyển trong không gian 2 chiều (không gian làm việc), với tập $S = \{\mathcal{P}_1, ...., \mathcal{P}_t\}$ các chướng ngại vật. Giả sử rằng $\mathcal{R}$ là một đa giác. Vị trí của robot có thể định nghĩa bởi một vector. Ta ký hiệu $\mathcal{R}(x,y)$ đại diện cho vector vị trí các đỉnh của robot (Điểm $(x,y)$ được gọi là điểm tham chiếu). Ví dụ robot có các đỉnh: $(1,-1), (1,1), (0,3), (-1,1), (-1,-1)$ thì $\mathcal{R}(6,4)$ sẽ đại diện cho vector vị trí của robot khi các đỉnh đa giác của robot ở các vị trí lần lượt là: $(7,3), (7,5), (6,7), (5,5), (5,3)$
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{work_space_definition.png}
+\end{figure}
+Giả sử robot có thể thay đổi hướng của nó thông qua phép quay, vì vậy ta cần định nghĩa thêm một tham số ($\phi$) để biểu diễn hướng của robot. Ký hiệu $\mathcal{R}(x,y,\phi)$ xác định vị trí và hướng của robot, trong đó $(x,y)$ là điểm tham chiếu, $\phi$ là góc quay ngược chiều kim đồng hồ so với vị trí thẳng (vị trí chưa quay của robot)
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{work_space_with_rotate.png}
+\end{figure}
+
 Không gian các tham số của một robot $\mathcal{R}$ thường được gọi là không gian cấu hình ($\mathcal{C}(\mathcal{R})$). Một điểm $p$ trong không gian cấu hình đó sẽ tương ứng với vị trí nào đó $\mathcal{R}(p)$ của robot trong không gian làm việc.
 \par Ví dụ điểm $(x,y,\phi)$ trong không gian cấu hình sẽ tương ứng với vị trí $\mathcal{R}(c,y,\phi)$ trong không gian làm việc. Không gian cấu hình là không gian $\mathbb{R}^2\times[0:360)$ (không phải không gian Euclidean 3 chiều) do chiều quay của robot là từ 0 đến 360 độ.
 \par Không gian làm việc là không gian thực tế mà robot di chuyển còn không gian cấu hình là không gian các tham số của robot (điểm tham chiếu, hướng của robot). Một đa giác (hình của robot) trong không gian làm việc sẽ được biểu diễn bởi một điểm trong không gian cấu hình và mọi điểm trong không gian cấu hình tương ứng với một vài vị trí thực của robot trong không gian làm việc.\\[0.6em]
 Như vậy bằng cách xác định các giá trị cho các tham số xác định vị trí (hay nói cách khác bằng cách xác định một điểm trong không gian cấu hình) ta có thể xác định được vị trí của robot. Nhưng không phải tất cả các điểm trong không gian cấu hình sẽ xác định vị trí hợp lệ của robot. Đó là các điểm tương ứng với vị trí của các chướng ngại vật trong $S$. Ta gọi phần không gian trong không gian cấu hình chứa các điểm như vậy là không gian cấm (Ký hiệu $\mathcal{C}_{forb}(\mathcal{R},S$). Phần còn lại của không gian cấu hình bao gồm các điểm tương ứng với các vị trí tự do (không vướng các chướng ngại vật) được gọi là không gian tự do (Ký hiệu $\mathcal{C}_{free}(\mathcal{R},S)$).
 \par Một đường đi của robot trong không gian làm việc sẽ tương đương với một đường cong trong không gian cấu hình (nối các điểm trong không gian cấu hình tương ứng với các vị trí trên đường đi của robot trong không gian làm việc) (Hình \ref{fig_path})
 \begin{figure}[H]
-\label{fig_path}
 \centering
 \includegraphics[scale=1]{path.png}
 \caption{Đường đi trong không gian làm việc và không gian cấu hình}
+\label{fig_path}
 \end{figure}
+
 Một chướng ngại vật $\mathcal{P}$ trong không gian làm việc tương ứng một tập các điểm $p$ trong không gian cấu hình sao cho $\mathcal{R}(p)$ giao với $\mathcal{P}$. Các điểm đó được ký hiệu là $\mathcal{C}-{obstacle}$ của $\mathcal{P}$.
-\par $\mathcal{C}-obstacles$ có thể giao nhau ngay cả khi những chướng ngại vật tương ứng trong không gian làm việc giao nhau, điều này xảy ra khi có vị trí của robot giao cắt với nhiều chướng ngại vật cùng một lúc.
+\par $\mathcal{C}-obstacles$ có thể giao nhau ngay cả khi những chướng ngại vật tương ứng trong không gian làm việc không giao nhau, điều này xảy ra khi có vị trí của robot giao cắt với nhiều chướng ngại vật cùng một lúc.
+
+\chapter{Lập kế hoạch di chuyển}
+\section{Bản đồ hình thang (Trapezoidal Maps)}
+Trong phần này chúng em sẽ trình bày về cách xây dựng bản đồ hình thang (Trapezoidal Maps) áp dụng trong bài toán lập kế hoạch di chuyển cho robot.
+\par Xét một vùng kín $B$, bên trong gồm các chướng ngại vật có dạng đa giác. 
+\begin{figure}[H]
+\label{object_pic}
+\centering
+\includegraphics[scale=0.4]{normal.png}
+\caption{Các chứng ngại vật hình đa giác}
+\end{figure}
+Xây dựng tập $S$ là tập các cạnh của các đa giác chướng ngại vật.
+
+\textbf{Yêu cầu:} 
+\begin{itemize}
+\item Hai cạnh bất kì phải là non-crossing tức là chúng không giao nhau hoặc có duy nhất một điểm mút chung.
+\item Hai điểm mút bất kì của hai cạnh bất kì là không cùng tọa độ x.
+\end{itemize}
+
+Yêu cầu thứ 2 nhìn có vẻ không hợp lý, nhưng trong thực tế việc có có hai đầu mút có cùng tọa độ là một điều rất khó xảy ra. Vậy nên ta hoàn toàn có thể chấp nhận yêu cầu thứ 2.
+
+Bản đồ hình thang $\mathcal{T}(S)$ của $S$ hay còn gọi là  phân tách đứng hoặc phân tách hình thang của S đạt được bằng cách vẽ hai đường thẳng từ mỗi đầu mút của một đoạn thẳng trong $S$, một đường đi xuống một đường đi lên. Hai đường thẳng này sẽ dừng lại khi gặp một đoạn thẳng khác hoặc biên của miền bao phủ ($B$). Bản đồ hình thang của $S$ được tạo bởi miền bao phủ, các chướng ngại vật và các đường thẳng vừa tạo. \\
+\begin{figure}[H]
+\label{object_pic}
+\centering
+\includegraphics[scale=0.4]{trmap.png}
+\caption{Bản đồ hình thang}
+\end{figure}
+Bồ đề 1: Mỗi vùng trong bản đồ hình thang luôn chỉ có một hoặc hai đường cạnh thẳng đứng và chính xác hai đoạn thẳng không đứng.\\
+
+Bổ đề 2: Bản đồ hình thang của một tập S gồm n đoạn thẳng thì sẽ chứa 6n+4 đỉnh và nhiều nhất 3n+1 hình thang.\\
+
+Để biểu diễn bản đồ hình thang ta chỉ cẩn sử dụng một danh sách bản ghi, mỗi bản ghi tương ứng với mỗi hình thang và có 4 hành vi top() trả về hình thang trên nó,bottom() hình thang dưới nó, left() hình thang bên trái nó, right() hình thang bên phải nó. \\
+
+Sau đây ta sẽ trình bày một thuật toán xây dựng cấu trúc tìm kiếm sử dụng để truy vấn trong bản đồ hình thang.\\
+
+Cấu trúc là một dạng cây, có 3 loại node trên cây :
+\begin{itemize}
+\item Nút lá đại diện cho một hình thang.
+\item Nút dạng x nhãn là một đầu mút của một đoạn thẳng nào đó.
+\item Nút dạng y nhãn là đoạn thẳng
+\end{itemize}
+
+Thuật toán hoạt động như sau :
+
+\emph{Đầu vào}: Tập các đường thẳng $S$
+
+\emph{Đầu ra}: Cấu trúc tìm kiếm trên Trapezoidal map($S$)
+
+\begin{enumerate}
+\item Khởi tạo danh sách hình thang, cây tìm kiếm.
+\item Xáo trộn  ngẫu nhiên các cạnh trong tập $S = {s_1, s_2, ...., s_n}$.
+\item For i from 1 to n  
+\begin{enumerate}
+\item Tìm tập hình thang giao với đoạn thăng $s_i$
+\item Xóa tất cả các hình thang đó khỏi danh sách $T$ và thay vào đó là tập các hình thang mới vừa tạo thành bởi cạnh $s_i$
+\item Xóa các hình thang ở bước a khỏi cấu trúc tìm kiếm. Liên kết các hình thang với nhau.
+\end{enumerate}
+\end{enumerate}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.28]{trmap2.png}
+\caption{Xây dựng các hình thang khi thêm một cạnh mới}
+\label{object_pic}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{trmap3.png}
+\caption{Cấu trúc tìm kiếm dựa trên cây}
+\label{object_pic}
+\end{figure}
 
 \section{Robot điểm}
 Trước khi ta lập kế hoạch cho robot đa giác, ta sẽ xét bài toán lập kế hoạch cho robot điểm (robot $\mathcal{R}$ và tập các chướng ngại vật $\mathcal{P}_1,...,\mathcal{P}_t$). Bằng cách chuyển không gian làm việc về không gian cấu hình, ta sẽ chuyển bài toán lập kế hoạch cho robot đa giác về bài toán lập kế hoạch cho robot điểm (một robot đa giác trong không gian làm việc sẽ là một robot điểm (điểm tham chiếu của robot) trong không gian cấu hình).
 \par Với bài toán lập kế hoạch di chuyển cho robot điểm, thay vì tìm đường đi từ một vị trí bắt đầu đến một vị trí kết thúc cụ thể, ta sẽ xây dựng một cấu trúc dữ liệu lưu trữ không gian trống. Cấu trúc dữ liệu này có thể sử dụng để tính toán đường đi giữa hai điểm bắt đầu và kết thúc bất kỳ trong không gian trống. Cách tiếp cận này sẽ thích hợp nếu không gian làm việc của robot không thay đổi và cần phải tính toán nhiều đường đi (lập kế hoạch di chuyển cho robot nhiều lần).\\[0.6em]
 Để đơn giản ta giới hạn không gian di chuyển của robot trong không gian (hộp) $B$ (Hình \ref{fig_moving_space})
 \begin{figure}[H]
-\label{fig_moving_space}
 \centering
 \includegraphics[scale=0.25]{moving_space.png}
 \caption{Không gian di chuyển robot}
+\label{fig_moving_space}
 \end{figure}
 Như vậy không gian trống của robot sẽ là:
 $$\mathcal{C}_{free} = B \setminus \bigcup_{i=1}^t \mathcal{P}_i$$
@@ -132,9 +214,9 @@ Ta sẽ sử dụng bản đồ hình thang để tính không gian trống mà 
 Giải thuật được minh họa trong hình \ref{fig_trapezoidal_free_space}. Trong đó hình (a) mô tả biểu đồ hình thang sau khi được tính toán tại bước 2 của giải thuật. Hình (b) là biểu đồ hình thang sau khi xóa bỏ các hình thang bên trong chướng ngại vật (bước 3)
 \begin{figure}[H]
 \centering
-\label{fig_trapezoidal_free_space}
 \includegraphics[scale=0.3]{trapezoidal_free_space.png}
 \caption{Biểu đồ hình thang của không gian trống}
+\label{fig_trapezoidal_free_space}
 \end{figure}
 
 \subsubsection{Xây dựng đường đi sử dụng bản đồ hình thang}
