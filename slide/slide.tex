@@ -65,11 +65,11 @@ PGS.TS Huỳnh Thị Thanh Bình}
 \subsection{Không gian làm việc, không gian cấu hình}
 \begin{frame}{Giới thiệu bài toán}
 \begin{itemize}
-\item $\mathcal{R}$ là robot di chuyển trong không gian 2 chiều (không gian làm việc) 
-\item $S = \{\mathcal{P}_1, ...., \mathcal{P}_t\}$ các chướng ngại vật 
-\item Ký hiệu $\mathcal{R}(x,y)$ đại diện cho vector vị trí các đỉnh của robot
-\item Robot có các đỉnh: $(1,-1), (1,1), (0,3), (-1,1), (-1,-1)$ => $\mathcal{R}(6,4) = (7,3), (7,5), (6,7), (5,5), (5,3)$
-\begin{figure}[H]
+\onslide<1->\item $\mathcal{R}$ là robot di chuyển trong không gian 2 chiều (không gian làm việc) 
+\onslide<2->\item $S = \{\mathcal{P}_1, ...., \mathcal{P}_t\}$ các chướng ngại vật 
+\onslide<3->\item Ký hiệu $\mathcal{R}(x,y)$ đại diện cho vector vị trí các đỉnh của robot
+\onslide<4->\item Robot có các đỉnh: $(1,-1), (1,1), (0,3), (-1,1), (-1,-1)$ \onslide<5->{=> $\mathcal{R}(6,4) = (7,3), (7,5), (6,7), (5,5), (5,3)$}
+\onslide<5->\begin{figure}[H]
 \centering
 \includegraphics[scale=0.2]{work_space_definition.png}
 \end{figure}
@@ -78,24 +78,24 @@ PGS.TS Huỳnh Thị Thanh Bình}
 
 \begin{frame}{Giới thiệu bài toán}
 \begin{itemize}
-\item Định nghĩa thêm một tham số ($\phi$) để biểu diễn hướng của robot
-\item Ký hiệu $\mathcal{R}(x,y,\phi)$ xác định vị trí và hướng của robot
+\onslide<1->\item Định nghĩa thêm một tham số ($\phi$) để biểu diễn hướng của robot
+\onslide<2->\item Ký hiệu $\mathcal{R}(x,y,\phi)$ xác định vị trí và hướng của robot
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.2]{work_space_with_rotate.png}
 \end{figure}
-\item Không gian các tham số thường được gọi là không gian cấu hình ($\mathcal{C}(\mathcal{R})$). 
+\onslide<3->\item Không gian các tham số thường được gọi là không gian cấu hình ($\mathcal{C}(\mathcal{R})$). 
 \item Điểm $(x,y,\phi)$ trong không gian cấu hình sẽ tương ứng với vị trí $\mathcal{R}(c,y,\phi)$ trong không gian làm việc.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Giới thiệu bài toán}
 \begin{itemize}
-\item Không gian làm việc là không gian thực tế mà robot di chuyển 
-\item Không gian cấu hình là không gian các tham số của robot (điểm tham chiếu, hướng của robot)
-\item Một đa giác (hình của robot) trong không gian làm việc sẽ được biểu diễn bởi một điểm trong không gian cấu hình 
-\item Mọi điểm trong không gian cấu hình tương ứng với một vài vị trí thực của robot trong không gian làm việc
-\item Một đường đi của robot trong không gian làm việc sẽ tương đương với một đường cong trong không gian cấu hình
+\onslide<1->\item Không gian làm việc là không gian thực tế mà robot di chuyển 
+\onslide<2->\item Không gian cấu hình là không gian các tham số của robot (điểm tham chiếu, hướng của robot)
+\onslide<3->\item Một đa giác (hình của robot) trong không gian làm việc sẽ được biểu diễn bởi một điểm trong không gian cấu hình 
+\onslide<4->\item Mọi điểm trong không gian cấu hình tương ứng với một vài vị trí thực của robot trong không gian làm việc
+\onslide<5->\item Một đường đi của robot trong không gian làm việc sẽ tương đương với một đường cong trong không gian cấu hình
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.45]{path.png}
@@ -108,26 +108,106 @@ PGS.TS Huỳnh Thị Thanh Bình}
 \subsection{Bản đồ hình thang}
 \begin{frame}{Bản đồ hình thang}
 \begin{itemize}
-\item Xét một vùng kín $B$, bên trong gồm các chướng ngại vật có dạng đa giác. 
+\onslide<1->\item Xét một vùng kín $B$, bên trong gồm các chướng ngại vật có dạng đa giác. 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.2]{normal.png}
 \end{figure}
-\item Xây dựng tập $S$ là tập các cạnh của các đa giác chướng ngại vật.
-\item Hai cạnh bất kì phải là non-crossing tức là chúng không giao nhau hoặc có duy nhất một điểm mút chung.
+\onslide<2->\item Xây dựng tập $S$ là tập các cạnh của các đa giác chướng ngại vật.
+\onslide<3->\item Hai cạnh bất kì phải là non-crossing tức là chúng không giao nhau hoặc có duy nhất một điểm mút chung.
 \item Hai điểm mút bất kì của hai cạnh bất kì là không cùng tọa độ x.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Bản đồ hình thang}
 \begin{itemize}
-\item Từ mỗi đầu mút của một đoạn thẳng trong $S$, vẽ một đường đi xuống một đường đi lên. 
+\onslide<1->\item Từ mỗi đầu mút của một đoạn thẳng trong $S$, vẽ một đường đi xuống một đường đi lên. 
 \item Hai đường thẳng này sẽ dừng lại khi gặp một đoạn thẳng khác hoặc biên của miền bao phủ ($B$).
-\begin{figure}[H]
+\onslide<2->\begin{figure}[H]
 \centering
 \includegraphics[scale=0.2]{trmap.png}
 \end{figure}
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Thuật toán}
+\begin{itemize}
+\item Bắt đầu với vùng kín $B$
+\item Sắp xếp các cạnh trong $S$ theo thứ tự ngẫu nhiên
+\item Thêm lần lượt từng cạnh. Mỗi lần thêm cập nhật lại bản đồ hình thang.
+\item $S_i$ tập của $i$ cạnh đầu tiên trong tập $S$
+\item[] $T_i$ kết quả của bản đồ hình thang
+\item Khi thêm một cạnh mới $s_i$, ta sẽ áp dụng các bước sau lên $T_{i-1}$
+\begin{itemize}
+\item Tìm trong $T_{i-1}$ những hình thang chứa điểm đầu và điểm cuối của $s_i$
+\item Lần theo đoạn $s_i$ từ trái sang phải, xác định các hình thang giao với nó
+\item Xóa bỏ các hình thang đó
+\item Thêm các hình thang tạo bởi $s_i$
+\item Cập nhật lại $T_i$
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tìm hình hang chứa điểm đầu và điểm cuối}
+\onslide<1->{Để tìm trong $T_{i-1}$ những hình thang chứa điểm đầu và điểm cuối của $s_i$} \onslide<2->{ => sử dụng cấu trúc tìm kiếm cây $D$ (Mỗi bản đồ hình thang $T_i$ sẽ có một cây tìm kiếm $D_i$ tương ứng)}
+
+\begin{itemize}
+\onslide<3->\item Nút lá là một hình thang.
+\onslide<3->\item Nút trong có hai loại 
+\begin{itemize}
+\onslide<4->\item Nút trong x (có nhãn là một điểm đầu mút của các cạnh trong ($S$))
+\begin{itemize}
+\onslide<5->\item Nếu điểm tìm kiếm có tọa độ $x$ nhỏ hơn điểm là nhãn của nút hiện tại thì đi theo nhánh trái
+\onslide<5->\item Nếu điểm tìm kiếm có tọa độ $x$ lớn hơn thì đi theo nhánh phải 
+\end{itemize}
+\onslide<4->\item Nút trong y (có nhãn là một cạnh trong $S$)
+\begin{itemize}
+\onslide<6->\item Nếu điểm tìm kiếm nằm bên dưới cạnh là nhãn của nút hiện tại thì đi theo nhánh trái 
+\onslide<6->\item Nếu điểm tìm kiếm nằm bên trên thì đi theo nhánh phải
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\onslide<7->{Cho điểm đầu mút của $s_i$ đi từ gốc đến lá} \onslide<8->{=> Nhãn của lá là hình thang chứa điểm đầu mút của $s_i$}
+\end{frame}
+
+\begin{frame}{Ví dụ}
+\begin{itemize}
+\item Sau khi thêm $s_1$
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.27]{tree_search.png}
+\end{figure}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ví dụ}
+\begin{itemize}
+\item Thêm $s_2$
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.27]{tree_search_add_segment.png}
+\end{figure}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ví dụ} 
+\begin{itemize}
+\item Cập nhật $D$
+\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{tree_search_update.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Ví dụ}
+\begin{itemize}
+\item Cập nhật $D$
+\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{tree_search_final.png}
+\end{figure}
 \end{frame}
 
 \subsection{Lập kế hoạch di chuyển}
