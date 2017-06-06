@@ -176,17 +176,16 @@ Thuật toán hoạt động như sau :
 \end{enumerate}
 Cụ thể giải thích thuật toán chi tiết như sau: \\
 
-Đầu tiên T được khởi tạo rỗng, bản đồ hình thang của tập rỗng thì bao gốm 1 hình thang. Cấu trúc tìm kiếm D thì chỉ bao gốm 1 nút là cho hình thang đó ( miền bao tổng). 
+Đầu tiên T được khởi tạo rỗng, bản đồ hình thang của tập rỗng thì bao gồm 1 hình thang. Cấu trúc tìm kiếm D thì chỉ bao gốm 1 nút là cho hình thang đó ( miền bao tổng). 
 
 Từ trạng thái hiện tại khi có thêm một đoạn $s_i$ bản đồ hình thang sẽ thay đổi.
  Nhận thấy khi có đoạn thăng $s_i$ nào đó đi qua các hình thang bị đi qua sẽ bị thay đổi. Vì vậy bước đầu tiên phải tìm $\bigtriangleup_0,\bigtriangleup_1, \bigtriangleup_2..., \bigtriangleup_i $ sắp xếp từ trái qua phải đoạn thẳng $s_i$, việc sắp xếp sẽ khiến ta dễ dàng trong việc tìm hàng xóm cúa hình thang nào đó. Điều này thể hiên răng khi cho một hình thang ta có thể dẻ dàng tim được hàng xóm của nó. 
 Để bắt đầu ta phải tìm được điểm đầu mút p của $s_i$ nằm trong $\bigtriangleup_0$
 ý nghĩa ở đây là ta có thể dựa vào trính vị trí của p là đầu mút bên trái của $s_i$ để tìm $\bigtriangleup_0$. Nếu p đã là đầu mút của một đoạn $s_{i-1}$ ta phải cần thận hơn( do ta cho phép hai đoạn thẳng có chung điểm mút ). Để tìm  $\bigtriangleup_0$ ta tìm kiếm trên D. Nếu p chưa được biểu diễn trước đó ta sẽ dễ dàng tìm ra nút lá tương ứng $\bigtriangleup_0$. Ngược lại nếu đã được biểu diễn rồi, ta sẽ vi phạm yêu cầu 2, để thực hiện được ta tạo ra điểm p' thay thế co p, p' rất xít ngay bên phải p.
-Sau khi tìm dược $\bigtriangleup_0$ ta áp dụng thuật toán sau để tìm ..
-
-Thuật toán FOLLOWSEGMENT:
-Đầu vào bản đồ hình thang T, cấu trúc tìm kiếm D và cạnh mới $s_i$
-Đầu ra tập hình thang giao với $s_i$
+Sau khi tìm dược $\bigtriangleup_0$ ta áp dụng thuật toán sau để tìm ..\\[0.6em]
+Thuật toán \textsc{FollowSegment} \\
+\emph{Đầu vào} bản đồ hình thang T, cấu trúc tìm kiếm D và cạnh mới $s_i$\\
+\emph{Đầu ra} tập hình thang giao với $s_i$
 \begin{enumerate}
 \item gọi p ,q lần lượt là đầu mút trái và phải của $s_i$
 \item Tìm kiếm p trong D để có được $\bigtriangleup_0$
@@ -419,7 +418,8 @@ Bây giờ chúng ta đã tính được không gian trống, chúng ta có th�
 
 
 \begin{thebibliography}{9} 
-
+\bibitem{cg_book} Mark de Berg, Otfried Cheong, Marc van Kreveld, Mark Overmars. \textit{Computational Geometry - Algorithms and Applications}
+\bibitem{trap} \url{http://www.cs.sfu.ca/~binay/813.2011/Trapezoidation.pdf}
 \end{thebibliography}
 
 
