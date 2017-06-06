@@ -81,7 +81,7 @@ Phan Anh Tú &   20134501 & CNTT2.01-K58\\
 %\listoftables
 \listoffigures
 
-\chapter{Mở đầu}
+\chapter{Giới thiệu bài toán}
 Một trong những mục đích cơ bản của ngành robot là thiết kế ra những con robot tự động, những con robot có khả năng tự động lập kế hoạch cho sự di chuyển của nó. Để có thể lập kế hoạch di chuyển, một con robot cần biết về môi trường xung quanh, những chướng ngại vật cần phải tránh. Và bài toán lập kế hoạch di chuyển cho robot là bài toán khó, vì vậy cần có một vài giả sử để làm đơn giản hóa bài toán: 
 \begin{itemize}
 \item Giả sử bài toán lập kế hoạch di chuyển cho robot trong không gian hai chiều, với các chướng ngại vật là các đa giác, và robot cũng là một đa giác. 
@@ -219,7 +219,7 @@ Giải thuật được minh họa trong hình \ref{fig_trapezoidal_free_space}.
 \label{fig_trapezoidal_free_space}
 \end{figure}
 
-\subsubsection{Xây dựng đường đi sử dụng bản đồ hình thang}
+\section{Xây dựng đường đi cho robot điểm}
 Cần xây dựng đường đi từ $p_{start}$ đến điểm $p_{end}$ sử dụng bản đồ hình thang $\mathcal{T}(\mathcal{C}_{free})$
 \par Nếu $p_{start}$ và $p_{goal}$ ở cùng trong một hình thang thì ta chỉ việc nối 2 điểm đó là có đường đi của robot.
 \par Nếu $p_{start}$ và $p_{goal}$ ở 2 hình thang khác nhau, thì đường đi của robot sẽ phải đi qua một số hình thang. Để xây dựng đường đi qua các hình thang từ $p_{start}$ đến $p_{goal}$ ta sẽ xây dựng \emph{road map} ($\mathcal{G}_{road}$) trên không gian trống. 
