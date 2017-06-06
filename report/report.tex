@@ -118,7 +118,7 @@ Một chướng ngại vật $\mathcal{P}$ trong không gian làm việc tương
 
 \chapter{Lập kế hoạch di chuyển}
 \section{Bản đồ hình thang (Trapezoidal Maps)}
-Trong phần này chúng em sẽ trình bày về cách xây dựng bản đồ hình thang (Trapezoidal Maps) áp dụng trong bài toán lập kế hoạch di chuyển cho robot.
+Trong phần này chúng em sẽ trình bày về cách xây dựng bản đồ hình thang (Trapezoidal Maps) áp dụng trong bài toán lập kế hoạch di chuyển cho robot.\\
 \par Xét một vùng kín $B$, bên trong gồm các chướng ngại vật có dạng đa giác. 
 \begin{figure}[H]
 \label{object_pic}
@@ -134,7 +134,7 @@ Xây dựng tập $S$ là tập các cạnh của các đa giác chướng ngạ
 \item Hai điểm mút bất kì của hai cạnh bất kì là không cùng tọa độ x.
 \end{itemize}
 
-Yêu cầu thứ 2 nhìn có vẻ không hợp lý, nhưng trong thực tế việc có có hai đầu mút có cùng tọa độ là một điều rất khó xảy ra. Vậy nên ta hoàn toàn có thể chấp nhận yêu cầu thứ 2.
+Yêu cầu thứ 2 nhìn có vẻ không hợp lý, nhưng trong thực tế việc có có hai đầu mút có cùng tọa độ là một điều rất khó xảy ra. Vậy nên yêu cầu này là hoàn toàn có thể chấp nhận được.\\
 
 Bản đồ hình thang $\mathcal{T}(S)$ của $S$ hay còn gọi là  phân tách đứng hoặc phân tách hình thang của S đạt được bằng cách vẽ hai đường thẳng từ mỗi đầu mút của một đoạn thẳng trong $S$, một đường đi xuống một đường đi lên. Hai đường thẳng này sẽ dừng lại khi gặp một đoạn thẳng khác hoặc biên của miền bao phủ ($B$). Bản đồ hình thang của $S$ được tạo bởi miền bao phủ, các chướng ngại vật và các đường thẳng vừa tạo. \\
 \begin{figure}[H]
@@ -149,7 +149,7 @@ Bổ đề 2: Bản đồ hình thang của một tập S gồm n đoạn thẳn
 
 Để biểu diễn bản đồ hình thang ta chỉ cẩn sử dụng một danh sách bản ghi, mỗi bản ghi tương ứng với mỗi hình thang và có 4 hành vi top() trả về hình thang trên nó,bottom() hình thang dưới nó, left() hình thang bên trái nó, right() hình thang bên phải nó. \\
 
-Sau đây ta sẽ trình bày một thuật toán xây dựng cấu trúc tìm kiếm sử dụng để truy vấn trong bản đồ hình thang.\\
+Nhận thấy nếu sử dụng danh sách hình thang để truy vẫn ta sẽ mất độ phức tạp O(số hình thang), độ phức tạp này là chưa chấp nhật được. Vì vậy, sau đây ta sẽ trình bày một thuật toán xây dựng cấu trúc tìm kiếm sử dụng để truy vấn trong bản đồ hình thang.\\
 
 Cấu trúc là một dạng cây, có 3 loại node trên cây :
 \begin{itemize}
@@ -169,53 +169,54 @@ Thuật toán hoạt động như sau :
 \item Xáo trộn  ngẫu nhiên các cạnh trong tập $S = {s_1, s_2, ...., s_n}$.
 \item For i from 1 to n  
 \begin{enumerate}
-\item Tìm tập hình thang giao với đoạn thăng $s_i$
+\item Tìm tập hình thang giao với đoạn thẳng $s_i$
 \item Xóa tất cả các hình thang đó khỏi danh sách $T$ và thay vào đó là tập các hình thang mới vừa tạo thành bởi cạnh $s_i$
-\item Xóa các hình thang ở bước a khỏi cấu trúc tìm kiếm. Liên kết các hình thang với nhau.
+\item Xóa các hình thang tìm được ở bước a khỏi cấu trúc tìm kiếm. Liên kết các hình thang với nhau.
 \end{enumerate}
 \end{enumerate}
-Cụ thể giải thích thuật toán chi tiết như sau: \\
+Thuật toán được giải thích chi tiết dưới đây: \\
 
-Đầu tiên T được khởi tạo rỗng, bản đồ hình thang của tập rỗng thì bao gồm 1 hình thang. Cấu trúc tìm kiếm D thì chỉ bao gốm 1 nút là cho hình thang đó ( miền bao tổng). 
-
-Từ trạng thái hiện tại khi có thêm một đoạn $s_i$ bản đồ hình thang sẽ thay đổi.
- Nhận thấy khi có đoạn thăng $s_i$ nào đó đi qua các hình thang bị đi qua sẽ bị thay đổi. Vì vậy bước đầu tiên phải tìm $\bigtriangleup_0,\bigtriangleup_1, \bigtriangleup_2..., \bigtriangleup_i $ sắp xếp từ trái qua phải đoạn thẳng $s_i$, việc sắp xếp sẽ khiến ta dễ dàng trong việc tìm hàng xóm cúa hình thang nào đó. Điều này thể hiên răng khi cho một hình thang ta có thể dẻ dàng tim được hàng xóm của nó. 
-Để bắt đầu ta phải tìm được điểm đầu mút p của $s_i$ nằm trong $\bigtriangleup_0$
-ý nghĩa ở đây là ta có thể dựa vào trính vị trí của p là đầu mút bên trái của $s_i$ để tìm $\bigtriangleup_0$. Nếu p đã là đầu mút của một đoạn $s_{i-1}$ ta phải cần thận hơn( do ta cho phép hai đoạn thẳng có chung điểm mút ). Để tìm  $\bigtriangleup_0$ ta tìm kiếm trên D. Nếu p chưa được biểu diễn trước đó ta sẽ dễ dàng tìm ra nút lá tương ứng $\bigtriangleup_0$. Ngược lại nếu đã được biểu diễn rồi, ta sẽ vi phạm yêu cầu 2, để thực hiện được ta tạo ra điểm p' thay thế co p, p' rất xít ngay bên phải p.
-Sau khi tìm dược $\bigtriangleup_0$ ta áp dụng thuật toán sau để tìm ..\\[0.6em]
-Thuật toán \textsc{FollowSegment} \\
-\emph{Đầu vào} bản đồ hình thang T, cấu trúc tìm kiếm D và cạnh mới $s_i$\\
-\emph{Đầu ra} tập hình thang giao với $s_i$
-\begin{enumerate}
-\item gọi p ,q lần lượt là đầu mút trái và phải của $s_i$
-\item Tìm kiếm p trong D để có được $\bigtriangleup_0$
-\item $j \longleftarrow 0$
-\item while q còn nằm bên phải của hình thang bên phải của $\bigtriangleup_j$ 
-\item do nếu hình thang bên phải của $\bigtriangleup_j$ nằm trên $s_i$ 
-\item thì  $\bigtriangleup_{j+1}$ là hàng xóm dưới phải của $\bigtriangleup_{j}$ 
-\item thì  $\bigtriangleup_{j+1}$ là hàng xóm trên phải của $\bigtriangleup_{j}$ 
-\item $j \longleftarrow j+1$
-\item return $\bigtriangleup_0,\bigtriangleup_1,..$
-\end{enumerate}
-Sau đó ta thực hiện cập nhật T và D  như hình
+Đầu tiên T được khởi tạo rỗng, bản đồ hình thang của tập rỗng thì bao gồm 1 hình thang. Cấu trúc tìm kiếm D thì chỉ bao gốm 1 nút là cho hình thang đó ( miền bao tổng). \\
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.28]{trmap2.png}
 \caption{Xây dựng các hình thang khi thêm một cạnh mới}
 \label{object_pic}
 \end{figure}
+Từ trạng thái hiện tại khi có thêm một đoạn $s_i$ bản đồ hình thang sẽ thay đổi.
+ Nhận thấy khi có đoạn thăng $s_i$ nào đó đi qua các hình thang, các hình thang đó sẽ phải sẽ bị thay đổi. Vì vậy bước đầu tiên phải tìm các hình thang cần phải thay đổi $\bigtriangleup_0,\bigtriangleup_1, \bigtriangleup_2..., \bigtriangleup_i $ sắp xếp từ trái qua phải theo chiều đoạn thẳng $s_i$, việc sắp xếp sẽ khiến ta dễ dàng trong việc tìm hàng xóm cúa hình thang nào đó.  
+Nhận thấy đầu mút bên trái p của $s_i$ nằm trong $\bigtriangleup_0$, ta có thể dựa vào trính vị trí của p là đầu mút bên trái của $s_i$ để tìm $\bigtriangleup_0$. Để tìm  $\bigtriangleup_0$ ta sử dụng luôn cấu trúc tìm kiếm D ở bước trước. Nhưng trong thực tế ta lại cho phép hai cạnh có chung đầu mút, vì vậy có thể p đã là đầu mút của một đoạn $s_{i-1}$ việc này sẽ ảnh hưởng đôi chút đến quá trình tìm $\bigtriangleup_0$.  Nếu p chưa được biểu diễn trước đó ta sẽ dễ dàng tìm ra nút lá tương ứng $\bigtriangleup_0$. Ngược lại nếu đã được biểu diễn rồi, ta sẽ vi phạm yêu cầu 2, để thực hiện được ta tạo ra điểm p' thay thế co p, p' rất xít ngay bên phải p.\\
+
+Cụ thể thuật toán tìm các hình thang giao bởi $s_i$ được mô tả trong thủ tục dưới đây:\\
+
+Thuật toán \textsc{FollowSegment} \\
+\emph{Đầu vào:} bản đồ hình thang T, cấu trúc tìm kiếm D và cạnh mới $s_i$.\\
+\emph{Đầu ra:} tập hình thang giao với $s_i$.
+\begin{enumerate}
+\item Gọi p ,q lần lượt là đầu mút trái và phải của $s_i$
+\item Tìm kiếm p trong D để có được $\bigtriangleup_0$
+\item $j \longleftarrow 0$
+\item while q còn nằm bên phải của hình thang bên phải của $\bigtriangleup_j$ 
+\item \hspace{1cm} do nếu hình thang bên phải của $\bigtriangleup_j$ nằm trên $s_i$ 
+\item  \hspace{1.5cm} thì  $\bigtriangleup_{j+1}$ là hàng xóm dưới phải của $\bigtriangleup_{j}$ 
+\item  \hspace{1.5cm} thì  $\bigtriangleup_{j+1}$ là hàng xóm trên phải của $\bigtriangleup_{j}$ 
+\item $j \longleftarrow j+1$
+\item return $\bigtriangleup_0,\bigtriangleup_1,..$
+\end{enumerate}
+Sau đó ta thực hiện cập nhật T và D  như hình
+
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{updateT.png}
+\includegraphics[scale=0.6]{updateT.png}
 \caption{Cập nhật điểm p không phải là mút chung}
 \label{object_pic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{updateT2.png}
+\includegraphics[scale=0.6]{updateT2.png}
 \caption{Cập nhật điểm p là mút chung giữa các cạnh}
 \label{object_pic}
 \end{figure}
