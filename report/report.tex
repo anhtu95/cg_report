@@ -174,6 +174,31 @@ Thuật toán hoạt động như sau :
 \item Xóa các hình thang ở bước a khỏi cấu trúc tìm kiếm. Liên kết các hình thang với nhau.
 \end{enumerate}
 \end{enumerate}
+Cụ thể giải thích thuật toán chi tiết như sau: \\
+
+Đầu tiên T được khởi tạo rỗng, bản đồ hình thang của tập rỗng thì bao gốm 1 hình thang. Cấu trúc tìm kiếm D thì chỉ bao gốm 1 nút là cho hình thang đó ( miền bao tổng). 
+
+Từ trạng thái hiện tại khi có thêm một đoạn $s_i$ bản đồ hình thang sẽ thay đổi.
+ Nhận thấy khi có đoạn thăng $s_i$ nào đó đi qua các hình thang bị đi qua sẽ bị thay đổi. Vì vậy bước đầu tiên phải tìm $\bigtriangleup_0,\bigtriangleup_1, \bigtriangleup_2..., \bigtriangleup_i $ sắp xếp từ trái qua phải đoạn thẳng $s_i$, việc sắp xếp sẽ khiến ta dễ dàng trong việc tìm hàng xóm cúa hình thang nào đó. Điều này thể hiên răng khi cho một hình thang ta có thể dẻ dàng tim được hàng xóm của nó. 
+Để bắt đầu ta phải tìm được điểm đầu mút p của $s_i$ nằm trong $\bigtriangleup_0$
+ý nghĩa ở đây là ta có thể dựa vào trính vị trí của p là đầu mút bên trái của $s_i$ để tìm $\bigtriangleup_0$. Nếu p đã là đầu mút của một đoạn $s_{i-1}$ ta phải cần thận hơn( do ta cho phép hai đoạn thẳng có chung điểm mút ). Để tìm  $\bigtriangleup_0$ ta tìm kiếm trên D. Nếu p chưa được biểu diễn trước đó ta sẽ dễ dàng tìm ra nút lá tương ứng $\bigtriangleup_0$. Ngược lại nếu đã được biểu diễn rồi, ta sẽ vi phạm yêu cầu 2, để thực hiện được ta tạo ra điểm p' thay thế co p, p' rất xít ngay bên phải p.
+Sau khi tìm dược $\bigtriangleup_0$ ta áp dụng thuật toán sau để tìm ..
+
+Thuật toán FOLLOWSEGMENT:
+Đầu vào bản đồ hình thang T, cấu trúc tìm kiếm D và cạnh mới $s_i$
+Đầu ra tập hình thang giao với $s_i$
+\begin{enumerate}
+\item gọi p ,q lần lượt là đầu mút trái và phải của $s_i$
+\item Tìm kiếm p trong D để có được $\bigtriangleup_0$
+\item $j \longleftarrow 0$
+\item while q còn nằm bên phải của hình thang bên phải của $\bigtriangleup_j$ 
+\item do nếu hình thang bên phải của $\bigtriangleup_j$ nằm trên $s_i$ 
+\item thì  $\bigtriangleup_{j+1}$ là hàng xóm dưới phải của $\bigtriangleup_{j}$ 
+\item thì  $\bigtriangleup_{j+1}$ là hàng xóm trên phải của $\bigtriangleup_{j}$ 
+\item $j \longleftarrow j+1$
+\item return $\bigtriangleup_0,\bigtriangleup_1,..$
+\end{enumerate}
+Sau đó ta thực hiện cập nhật T và D  như hình
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.28]{trmap2.png}
@@ -181,13 +206,26 @@ Thuật toán hoạt động như sau :
 \label{object_pic}
 \end{figure}
 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{updateT.png}
+\caption{Cập nhật điểm p không phải là mút chung}
+\label{object_pic}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{updateT2.png}
+\caption{Cập nhật điểm p là mút chung giữa các cạnh}
+\label{object_pic}
+\end{figure}
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{trmap3.png}
 \caption{Cấu trúc tìm kiếm dựa trên cây}
 \label{object_pic}
 \end{figure}
-
 \section{Robot điểm}
 Trước khi ta lập kế hoạch cho robot đa giác, ta sẽ xét bài toán lập kế hoạch cho robot điểm (robot $\mathcal{R}$ và tập các chướng ngại vật $\mathcal{P}_1,...,\mathcal{P}_t$). Bằng cách chuyển không gian làm việc về không gian cấu hình, ta sẽ chuyển bài toán lập kế hoạch cho robot đa giác về bài toán lập kế hoạch cho robot điểm (một robot đa giác trong không gian làm việc sẽ là một robot điểm (điểm tham chiếu của robot) trong không gian cấu hình).
 \par Với bài toán lập kế hoạch di chuyển cho robot điểm, thay vì tìm đường đi từ một vị trí bắt đầu đến một vị trí kết thúc cụ thể, ta sẽ xây dựng một cấu trúc dữ liệu lưu trữ không gian trống. Cấu trúc dữ liệu này có thể sử dụng để tính toán đường đi giữa hai điểm bắt đầu và kết thúc bất kỳ trong không gian trống. Cách tiếp cận này sẽ thích hợp nếu không gian làm việc của robot không thay đổi và cần phải tính toán nhiều đường đi (lập kế hoạch di chuyển cho robot nhiều lần).\\[0.6em]
